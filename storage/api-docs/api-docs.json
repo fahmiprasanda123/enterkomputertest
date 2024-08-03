@@ -1,0 +1,133 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Enterkomputer API",
+        "description": "API Documentation for Enterkomputer Backend",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Enterkomputer API Server"
+        }
+    ],
+    "paths": {
+        "/api/order": {
+            "post": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Create a new order",
+                "operationId": "e6f6ccd33c4446106ff016845490d367",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "table_number": {
+                                        "type": "integer"
+                                    },
+                                    "items": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "product_id": {
+                                                    "type": "integer"
+                                                },
+                                                "quantity": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Order created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "printers": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/bill/{tableNumber}": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Get the bill for a table",
+                "operationId": "eff645a1a7173c42315212f8969faeff",
+                "parameters": [
+                    {
+                        "name": "tableNumber",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Bill retrieved",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "bill": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "product": {
+                                                        "type": "string"
+                                                    },
+                                                    "quantity": {
+                                                        "type": "integer"
+                                                    },
+                                                    "total_price": {
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "total": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Order",
+            "description": "Order"
+        }
+    ]
+}
